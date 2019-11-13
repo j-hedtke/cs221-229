@@ -12,13 +12,16 @@ phrases_list = [list(filter(None, line.strip().split(','))) for line in phrases 
 def scoring(pair):
     query_vec_1, query_vec_2 = bc.encode(pair)
     cosine = np.dot(query_vec_1, query_vec_2) / (np.linalg.norm(query_vec_1) * np.linalg.norm(query_vec_2))
-    return 1 / (1 + math.exp(-100 * (cosine - 0.95)))
+    return cosine #1 / (1 + math.exp(-100 * (cosine - 0.95)))
 
 
 with BertClient(port=5555, port_out=5556, check_version=False) as bc:
 
     print("Start testing")
-
+    f = open("bert_cos_similarity.txt", "w+")
     for i, p in enumerate(phrases_list):
-        print("Similarity of Pair {}: ".format(i + 1), scoring(p))
+        score = scoring(p)
+        print("Similarity of Pair {}: ".format(i + 1), score)
+        f.write(str(score) + '\n')
+    f.close()
 
