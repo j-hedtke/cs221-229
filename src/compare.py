@@ -3,9 +3,12 @@ import os
 
 dirname = os.path.dirname(os.path.dirname(__file__))
 
-with open(os.path.join(dirname, 'output/avg_cos_similarity.txt'), encoding="utf8") as f:
+file1 = 'output/avg_cos_similarity.txt' #baseline
+file2 = 'output/bertscore_F1_roberta_noidf.txt' #bert
+
+with open(os.path.join(dirname, file1), encoding="utf8") as f:
     baseline = list(map(float, f.readlines()))
-with open(os.path.join(dirname, 'output/bert_cos_similarity.txt'), encoding="utf8") as f:
+with open(os.path.join(dirname, file2), encoding="utf8") as f:
     bert_similarities = list(map(float, f.readlines()))
 
 if len(baseline) != len(bert_similarities):
@@ -16,6 +19,8 @@ diff_bert = 0
 
 a = np.sum(np.array(baseline))
 b = np.sum(np.array(bert_similarities))
+print('Bert score: ', b)
+print('Baseline score: ', a)
 
 for i in range(len(baseline)):
     diff_base += 1 - baseline[i]
