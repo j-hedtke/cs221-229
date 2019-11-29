@@ -12,6 +12,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import csv
 import pandas as pd
+from bert import modeling, optimization, run_classifier 
+from bert import run_classifier_with_tfhub, tokenization
 
 DATA_TRAIN = ['MRPC_train', 'SICK_train']
 DATA_TEST = ['MRPC_test']
@@ -34,9 +36,6 @@ DATA_DIR = {
 }
 
 
-from bert import modeling, optimization, run_classifier 
-from bert import run_classifier_with_tfhub, tokenization
-
 class Example():
     def __init__(self, uid, sent_1, sent_2, label):
         self.uid = uid
@@ -45,7 +44,7 @@ class Example():
         self.label = label
 
 class PaddingExample():
-    """Empty Class"""
+    """Proxy for None"""
 
 class Features():
     def __init__(self, ids, mask, segment_ids, label_id, is_real_example = True)
@@ -136,7 +135,7 @@ def featurize_example_list(examples, max_seq_length, tokenizer):
         if i % 10000 == 0:
             tf.logging.info("Writing example %d of %d" % (i,
                                                           len(examples)))
-        feature = featurize(example, tokenizer)
+        feature = featurize_example(example, tokenizer)
         features.append(feature)
 
     return features
