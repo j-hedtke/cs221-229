@@ -3,4 +3,5 @@ data/GoogleNews-vectors-negative300.bin
 data/gs_transcripts/*.json
 data/SICK_Annotated.zip
 models/*
-data/MRPC/*
+data/Stsbenchmark.tar.gz
+data/stsbenchmark/*
