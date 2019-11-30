@@ -13,9 +13,9 @@ phrases_list = [list(filter(None, line.strip().split(','))) for line in phrases 
 first_sentences = [re.sub(r' +', ' ', x[0]) for x in phrases_list]
 second_sentences = [re.sub(r' +', ' ', x[1]) for x in phrases_list]
 
-(P, R, F), hashname = score(first_sentences, second_sentences, model_type='bert-base-uncased', lang='en', return_hash=True)
+(P, R, F), hashname = score(first_sentences, second_sentences, lang='en', idf=True, return_hash=True) #model_type='bert-base-uncased',
 
-fout = open(os.path.join(dirname, "output/bertscore_F1_bert-base_noidf.txt"), "w+")
+fout = open(os.path.join(dirname, "output/bertscore_F1_roberta_idf.txt"), "w+")
 for val in F.numpy().flatten():
         fout.write(str(val) + '\n')
 fout.close()

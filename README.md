@@ -9,3 +9,5 @@ where /tmp/english_L-12_H-768_A-12/ is the path to the pretrained model you want
 
 After that you will be able to run calculations using BERT service (bert_service.py in the source code)
 The code outputs cosine similarities for pairs of sentences tokenized by the utilized model. 
+
+sentence-transformers.py allows to calculate cosine similarity using RoBERTa
