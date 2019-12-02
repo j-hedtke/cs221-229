@@ -6,7 +6,7 @@ import os
 import subprocess
 import argparse
 
-def score(phrases, pos=True):
+def score(phrases, output_path):
     def scoring(pair):
         query_vec_1, query_vec_2 = bc.encode(pair)
         cosine = np.dot(query_vec_1, query_vec_2) / (np.linalg.norm(query_vec_1) * np.linalg.norm(query_vec_2))
@@ -16,11 +16,13 @@ def score(phrases, pos=True):
     with BertClient(port=5555, port_out=5556, check_version=False) as bc:
 
         print("Start testing")
+        """
         if pos:
             f = open("bert_cos_similarity.txt", "w+")
         else:
             f = open("neg_bert_cos_similarity.txt", "w+")
-
+        """
+        f = open(output_path, 'w+')
         for i, p in enumerate(phrases_list):
             score = scoring(p)
             print("Similarity of Pair {}: ".format(i + 1), score)
@@ -31,6 +33,7 @@ def score(phrases, pos=True):
 
 if __name__ == '__main__':
     
+    """
     with open(os.path.join(os.pardir, 'data/datacleaned_valid.txt'), encoding="utf8") as fp:
         phrases = fp.read().split('\n')
     phrases_list = [list(filter(None, line.strip().split(','))) for line in phrases if line.strip() and re.search('[a-zA-Z]', line)]
@@ -45,4 +48,16 @@ if __name__ == '__main__':
 
     #negative
     score(phrases_list, pos=False)
+    """
+
+    with open(os.path.join(os.pardir, 'data/random_sentences_valid.txt'), encoding="utf8") as fp:
+        phrases = fp.read().split('\n')
+    phrases_list = [list(filter(None, line.strip().split(','))) for line in phrases if line.strip() and re.search('[a-zA-Z]', line)]
+
+
+    #negative with random list
+    score(phrases_list, 'negrandom_bert_cos_similarity.txt')
+
+
+
 
