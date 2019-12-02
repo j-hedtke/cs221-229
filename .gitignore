@@ -6,4 +6,3 @@ data/Stsbenchmark.tar.gz
 data/stsbenchmark/*
 output/eng_news_embeddings.csv
 output/eng_news_embeddings.jsonl
-models/*

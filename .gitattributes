@@ -8,4 +8,4 @@ data/eng_news_2016_1M/eng_news_2016_1M-co_s.txt filter=lfs diff=lfs merge=lfs -t
 data/eng_news_2016_1M/eng_news_2016_1M-import.sql filter=lfs diff=lfs merge=lfs -text
 data/gs_transcripts/segments.txt filter=lfs diff=lfs merge=lfs -text
 data/SICK_annotated.txt filter=lfs diff=lfs merge=lfs -text
-
+models/** filter=lfs diff=lfs merge=lfs -text
