@@ -4,7 +4,8 @@ import argparse
 
 BASE_MODEL_DIR = os.path.join(os.pardir, 'models', 'uncased_L-12_H-768_A-12')
 FINETUNED_DIR = os.path.join(os.pardir, 'models', 'finetuned', 'mrpc/MRPC')
-MAX_SEQ_LEN = None
+MAX_SEQ_LEN = 128
+NUM_WORKERS = 2
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Running BERT as a service')
@@ -15,7 +16,8 @@ if __name__ == '__main__':
         if args.finetuned == 'mrpc':
             cmd = ['bert-serving-start', '-model_dir={}'.format(BASE_MODEL_DIR),
         '-tuned_model_dir={}'.format(FINETUNED_DIR),
-        '-ckpt_name=model.ckpt-343', '-max_seq_len={}'.format(MAX_SEQ_LEN)]
+        '-ckpt_name=model.ckpt-343', '-max_seq_len={}'.format(MAX_SEQ_LEN),
+        '-num_worker={}'.format(NUM_WORKERS)]
     else:
         cmd = ['bert-serving-start', '-model_dir={}'.format(BASE_MODEL_DIR)]
 
