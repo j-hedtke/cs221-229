@@ -2,8 +2,8 @@ import os
 import subprocess
 import argparse
 
-BASE_MODEL_DIR = os.path.join(os.pardir, 'models', 'uncased_L-12_H-768_A-12')
-FINETUNED_DIR = os.path.join(os.pardir, 'models', 'finetuned', 'mrpc/MRPC')
+BASE_MODEL_DIR = 'C:/TMP/cs229proj/models/uncased_L-12_H-768_A-12' #os.path.join(os.pardir, 'models', 'uncased_L-12_H-768_A-12')
+FINETUNED_DIR = 'C:/TMP/cs229proj/models/bert_finetuned/' #os.path.join(os.pardir, 'models', 'finetuned', 'mrpc/MRPC')
 MAX_SEQ_LEN = None
 
 if __name__ == '__main__':
