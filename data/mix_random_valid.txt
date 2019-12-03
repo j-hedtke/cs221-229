@@ -1,0 +1,116 @@
+they said before i had a visa, they told me I had a visa earlier
+we could transfer money into my usaa checking account when i need it, when we have to we transfer funds into my checking account
+may I have your name please, who do I have the pleasure of speaking with
+last time i did it online, I did it online before
+how may I help you, how can I be of assistance to you
+thank you for choosing usaa, thank you for calling usaa
+my debit card keeps getting refused, my card is being declined
+
+let me take a look and see here, bear with me one moment
+
+I need to put a travel notification on my card, I am outside of the country and need a notification on my card
+
+I’d be more than happy to help you, let’s see what we can do for you here
+
+well see it's like my mom and stepdad have verizon they were asking me the benefits for cricket, my mom and stepdad are with verizon and were asking me why cricket is a better company
+
+yes i am hoping you can help me uhm i have uh an auto policy with you guys, i have an auto policy with usaa and i need your help
+
+no but fortunately for me i worked at a university not for the government, luckily i didn’t work for the goverment i worked at a university
+
+it could just be that it hasn't fully processed yet 'cause we do a lot of batching at our batching starts at midnight, batching doesn’t start until midnight so it might not be done processing yet
+
+um i do see that you have a birthday coming up so i'd like to wish you a happy early birthday i hope you have a wonderful time, it shows here your birthday’s soon so i’d like to say happy early birthday and have a great time
+
+well let me get into your account i can send you a temporary pin and then you can change it we can do it that way, once i’m in your account i can give you a temporary pin and afterwards you can make your own we can do it like that
+
+i was i was so careful and i'm sure that i hit the pin and it's very familiar to me because it was an address of a place that i lived, i put the pin in so carefully and i’m sure of it because it is the address of a previous residence
+
+okay so i'm more than happy to help you out it's asking for your pin give me the pin you think it is and i can try and put it in, i need to put in the pin you think it is first and then i can see if it goes in i’m more than happy to help you out here
+
+i can't even get into your account i need to have somebody authenticate you so i can get into your account, someone will need to authenticate you so i can unlock your account because i cannot access your account
+
+no so if i came into the money like the next month i could just pay it right off, i can pay it all at once if I get the money next month
+
+and then do you know your gross income and i can do that annually monthly twice a month whatever's easiest for you, what is your income either per year or every month or bimonthly whatever way is easiest
+
+mean if you can uh i guess is january too soon [laughter] you could do at the end of the month too okay alright let's do february seventeenth on, you can do it at the end of january or if that’s too soon then let’s do the seventeenth of february
+
+i think i'll be able to go i'll be able to go online to and see these automatic payments already hooked up and everything right, will i see the automatic payments plugged in already when i go online
+
+okay so yeah that's all that's left to do now is just for you to go on and e sign the loan documents and then the whole process will go from there it'll automatically start uhm getting it ready to put it in there, the last thing you need to do is e sign the loan documents and then it will automatically get it ready from there
+
+uhm do you do you want me to stay on the line just in case if if it's having issues when you're trying to sign or, i can stay on the line with you while you’re signing in case it gives you a problem
+
+hey how's it going yeah i uh i just recently saw that my address was still on my old address and i changed it through usaa and it it prompted me and said that i may need to call and make sure my my insurances are also on the new address, hey i need to make sure my insurances are listed on the new address i just changed usaa just notified me to call in
+
+uhm i'm still hoping that <unk> if it wasn't raining i would take my motorcycle just bypass all the the traffic that's usually what i do when i drive to sac, when i drive to sacramento and isn’t raining i take my motorcycle to get around all the traffic
+
+alright so what is this new address that we speak of, what’s your new address
+
+yeah [laughter] well we'll we'll see uh it might get bumped up to that soon just because of the uh i just got hired in atwater so i might have to commute to atwater , my mileage might increase soon because i might need to commute to atwater for work
+
+so i don't have any idea what card or what's happening with it so i can't even really tell you more than <unk> i got a fraud alert from you guys, i got a fraud alert from usaa and i have no idea what card it is for or what’s going on
+
+right so i just i kind of figured out that this might be on your credit card account so i'm going to get you verified and identified through the system, i need to verify and identify you through the system ‘cause I just realized this might be on your credit card account
+
+but it just startled me when they were when i got this and then you know i got the call about my daughter and son in law and they called and they said they had no idea so i wanted to make sure it wasn't on my account, i was a little alarmed when i got this alert and they mentioned my daughter and son in law who called and had no idea so i wanna make sure this is not regarding my account
+
+so this is uh your account is still active and available for immediate use your card is a normal status i don't see any security alerts um or um recent transactions that are pending so you haven't used your credit card today at all correct, i don’t see any security alerts or recent transactions on your card which is in normal status and your account is active and able to be used right now you haven’t used your card today right
+
+is it uh possibly that you may have your phone number on um their account somehow, is it possible your phone number might be on their account
+
+but uhm i was like no let me before i call her let me call you guys to see if i need to change my card yet again, i am calling you guys before i call her to see if i need to change my card again
+
+they said before i had a visa,In this section we demonstrate the workflow by training and testing a model for salt body interpretation
+we could transfer money into my usaa checking account when i need it,The seismic image in this example is cropped from SEAM Phase synthetic dataset
+may I have your name please,We selected crossline D slices as training data
+last time i did it online,The training labels are manual annotations generated by an optimal path picking method
+how may I help you,With a seismic amplitude image as input the network should identify the entire salt body as a probability map output starting from a seed point We set the FoV size for D salt body interpretation to x
+thank you for choosing usaa,Although it is a relatively small size compared to x the size of the target the movement of the FoV should be able to cover the entirety of the salt body
+my debit card keeps getting refused,In the network we downsample the inputs times with x max pooling every convolutional layers in the encoder section and symmetrically upsample in the decoder section
+let me take a look and see here,Since the dimension of the inputs is downsampled x in total before upsampling the FoV is zeropadded to x and cropped to the original size at the final output In order to train the model to move the FoV effectively within the geobody we adopt a dynamic subregion scheme to constrain the movements of the FoV during training
+I need to put a travel notification on my card,A limited number of subregions are randomly sampled from each training image so that all subregions are centered within the valid geobody
+Id be more than happy to help you,In the first epoch subregions share the same size with the FoV so the network only learns how to segment the input image without actually moving the FoV
+well see its like my mom and stepdad have verizon they were asking me the benefits for cricket,After that the subregions grow in size until hitting the x limit on each new epoch
+yes i am hoping you can help me uhm i have uh an auto policy with you guys,This way the network gradually learns to move the FoV based on previous segmentation results further and further away from the starting point
+no but fortunately for me i worked at a university not for the government,We train the model for epochs and use area under the curve as the metric to determine the matching performance of the prediction likelihood against the ground truth The training took less than hours with a GTX Ti GPU
+it could just be that it hasnt fully processed yet cause we do a lot of batching at our batching starts at midnight,Note that because the FoV cannot move outside the image boundary FoV centers could not cover the entire range of the picked fault however the segmentation of that fault is already completed and floodfilling can continue as shown in Figure Figure show examples of picking only one fault instance with other faults in the vicinity
+um i do see that you have a birthday coming up so id like to wish you a happy early birthday i hope you have a wonderful time,Figure shows tracking history when the seed point is put on the middle fault and in Figure the floodfilling can continue to fill up the entire instance
+well let me get into your account i can send you a temporary pin and then you can change it we can do it that way,Figure show similar processes but start with different seed points to the left and right side of the one in Figure
+i was i was so careful and im sure that i hit the pin and its very familiar to me because it was an address of a place that i lived,In Figure even though the seed point is slightly off from the correct fault position floodfilling can automatically correct to align with the fault
+okay so im more than happy to help you out its asking for your pin give me the pin you think it is and i can try and put it in,Note that although the tracking is focused on one of the many faults the output fault likelihood maps overlaid on the background image show that the model is still aware of the other faults in the vicinity depending on the size of the FoV
+i cant even get into your account i need to have somebody authenticate you so i can get into your account,Figure shows all three fault instances generated in Figure
+no so if i came into the money like the next month i could just pay it right off,This demonstrates the ability to separate geobody instances with the same attribute Although all examples are in D the transfer of this concept to D is straightforward and requires trivial effort
+and then do you know your gross income and i can do that annually monthly twice a month whatevers easiest for you,In D the proposed workflow can be more computationally efficient than the traditional sliding window scheme
+mean if you can uh i guess is january too soon laughter you could do at the end of the month too okay alright lets do february seventeenth on,In addition to the salt body and fault interpretation the proposed method can be additionally suitable for D channel tracking On the other hand the proposed method may not perform well in the case of trying to separate instances that overlap
+i think ill be able to go ill be able to go online to and see these automatic payments already hooked up and everything right,This is due to the fact that each FoV search for the proposal for the next movement in all directions equally in order to fill the geobody space
+okay so yeah thats all thats left to do now is just for you to go on and e sign the loan documents and then the whole process will go from there itll automatically start uhm getting it ready to put it in there,However show that deep learning can predict not only geobody likelihood but also relevant attributes fault dip and strike angle
+uhm do you do you want me to stay on the line just in case if if its having issues when youre trying to sign or,It is worth investigating to utilize these important directional attributes in deep learning interpretation methods such as guiding the floodfilling search pattern so that overlapping instances can be separated
+hey hows it going yeah i uh i just recently saw that my address was still on my old address and i changed it through usaa and it it prompted me and said that i may need to call and make sure my my insurances are also on the new address,Figure shows the predicted results after implementing prediction on the whole dataset by using trained model From Figure high accuracy can be seen on the sections used for training and sections in the neighborhood
+uhm im still hoping that unk if it wasnt raining i would take my motorcycle just bypass all the the traffic thats usually what i do when i drive to sac,Both positions and boundaries of seismic facies are generally predicted correctly
+alright so what is this new address that we speak of,It is obvious that prediction on training sections such as inline achieves high similarity to label images although some tiny details need better prediction Several seismic facies are predicted particularly precisely in Figure for example high amplitude continuous grizzly high amplitude and salt dome
+yeah laughter well well well see uh it might get bumped up to that soon just because of the uh i just got hired in atwater so i might have to commute to atwater ,It takes hours minutes in training and only seconds in onesection prediction on two NVIDIA Tesla Km GPUs Compared with CNNs applied for seismic facies interpretation our scheme significantly reduces computational time in training and predicting
+so i dont have any idea what card or whats happening with it so i cant even really tell you more than unk i got a fraud alert from you guys,Meanwhile seismic facies are classified more accurately by DeepLabv
+right so i just i kind of figured out that this might be on your credit card account so im going to get you verified and identified through the system,Compared with simple encoderdecoder models in seismic facies interpretation our scheme predicts more accurate results for encoding multiscale information and decoding more details Good performance can be observed even in crossline sections timeslice sections and the inline sections far from training sections as shown in Figure
+but it just startled me when they were when i got this and then you know i got the call about my daughter and son in law and they called and they said they had no idea so i wanted to make sure it wasnt on my account,These predicted sections are randomly extracted from the predicted data cube And note that the size of each training slice is Ud while data sections to be predicted are at size Ud
+so this is uh your account is still active and available for immediate use your card is a normal status i dont see any security alerts um or um recent transactions that are pending so you havent used your credit card today at all correct,It means that DeepLabv is flexible in size during training and predicting We propose an effective scheme for automatic seismic facies interpretation by utilizing DeepLabv
+is it uh possibly that you may have your phone number on um their account somehow,This enhanced encoderdecoder structure produces more accurate pixellevel predictions by extracting multiscale features and recovering more details
+but uhm i was like no let me before i call her let me call you guys to see if i need to change my card yet again,And this scheme reduces weights to significantly improve efficiency
+i can barely hear you let me bump up the volume,The implementation on F dataset shows its good performance in seismic facies interpretation
+laughter not a problem sir it happens to me all the time so i know how it goes if you need any help from us sir feel free to give us a call back okay,Furthermore the well predicted results indicate huge potentials in seismic interpretation using DeepLabv
+theyre saying they didnt get it and theyre still gonna charge me for my insurance,Seismic facies commonly indicate types of lithological association and sedimentary characteristics of geological bodies
+theyre aware they totaled the car right,The interpretation of seismic facies provides a reference for analyzing subsurface geological conditions
+super wild okay and then theyre now theyre also requesting uhm a declarations page for your um new policy here at usaa is that right,Conventional seismic interpretation methods usually require a lot of manual works and the interpretation results are inevitably affected by some subjective factors
+they should have record of the total loss im just really confused by why theyre theyre making it such a hard time for you,To address these issues deep learning has drawn a lot of attention in recent years Research in deep learning has made significant progress in several fields such as computer vision
+and then uh cause but they wont take anything directly from me everything has to go through freeway insurance,Considering the similarity between seismic interpretation and computer vision many researchers adopt computer vision algorithms to analyze and understand subsurface structures
+i just i just wanted to be done with them and i feel frustrated because i cant get done laughter,Convolutional neural networks are commonly considered to solve seismic interpretation problems such as faults identification salt dome prediction and seismic facies interpretation
+and brians on that policy right,However CNN has a fatal shortage that CNN merely predicts imagewise classification results instead of pixelwise results
+okay will you email that to me so i can forward it to im just gonna forward it to them directly even though they say that they wont take it,Although dense prediction can be achieved by performing classification using CNN models on small patches of data to infer the class label at the patch center it is inaccurate and computationally timeconsuming The FCN model developed from CNN inspires researchers to establish encoderdecoder structures for semantic segmentation tasks
+it says both of our names on there it says jeep it says all that stuff on there,These structures are specially designed for dense predictions because they can predict pixellevel outputs in real time
+hi linda uhm im im just calling to see if uh my debit my new debit card got mailed and if they did it expedited or they did it regularly,The encoder similar to a CNN model is used to extract features to obtain feature maps and the decoder similar to a deconvolution operation is used to recover feature maps to the original size and predict outputs
+okay im not sure i can email you the information but ill be happy to share any status that i have with you,Simple encoderdecoder models have been implemented in salt dome detection and facies interpretation DeepLabv is an enhanced encoderdecoder structure that achieves a stateoftheart performance on PASCAL VOC and Cityscapes datasets
+okay for sure thank you so much and theres no way i can find out the tracking information on that cause they said they were gonna email me but i never got an email from usaa about that,This structure performs higher accuracy than simple encoderdecoder models by applying Atrous spatial pyramid pooling module and a simple yet effective decoder module
+okay no problem i can definitely assist you with transferring that money to your son uhm what account are we taking the money out of,By utilizing depthwise separable convolution DeepLabv can reduce a lot of weights and greatly improve the efficiency
+yeah definitely id be happy to assist you there uh i do you want to make sure i got the right account whats your first and last name,In this paper we propose a scheme for seismic facies interpretation using DeepLabv After implementing effective data augmentation to generate diversity training samples we perform DeepLabv to extract multiscale features of seismic facies and recover more details in prediction results
+and uh ill be asking a few questions to give you the best possible service there,By tuning parameters the application of our scheme on F dataset demonstrates good performance for high accuracy and efficiency After data augmentation we obtain thousands of diversity data slices at crop size Ud or Ud

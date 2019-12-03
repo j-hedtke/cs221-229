@@ -1,2 +1,0 @@
-sentence-transformers_cosine_bert-base: 77.90764135122299
-sentence-transformers_cosine_roberta: 88.66308128833771

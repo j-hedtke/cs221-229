@@ -13,8 +13,9 @@ phrases_list = [list(filter(None, line.strip().split(','))) for line in phrases 
 first_sentences = [re.sub(r' +', ' ', x[0]) for x in phrases_list]
 second_sentences = [re.sub(r' +', ' ', x[1]) for x in phrases_list]
 
-#model = SentenceTransformer('bert-base-nli-mean-tokens')
-
+model = SentenceTransformer('bert-base-cased')
+#model = SentenceTransformer('C:/TMP/cs229proj/models/bert_finetuned/')
+'''
 word_embedding_model = models.RoBERTa('roberta-large')
 pooling_model = models.Pooling(word_embedding_model.get_word_embedding_dimension(),
                                pooling_mode_mean_tokens=True,
@@ -22,7 +23,7 @@ pooling_model = models.Pooling(word_embedding_model.get_word_embedding_dimension
                                pooling_mode_max_tokens=False)
 
 model = SentenceTransformer(modules=[word_embedding_model, pooling_model])
-
+'''
 first_encoded = model.encode(first_sentences)
 second_encoded = model.encode(second_sentences)
 

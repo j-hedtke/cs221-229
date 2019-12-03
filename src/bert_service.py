@@ -19,7 +19,7 @@ def score(phrases, pos=True):
         if pos:
             f = open("bert_cos_similarity.txt", "w+")
         else:
-            f = open("neg_bert_cos_similarity.txt", "w+")
+            f = open(os.path.join(os.pardir, "output/mix_sent_bert_finetuned_cos_similarity.txt"), "w+")
 
         for i, p in enumerate(phrases_list):
             score = scoring(p)
@@ -30,15 +30,15 @@ def score(phrases, pos=True):
 
 
 if __name__ == '__main__':
-    
+    '''
     with open(os.path.join(os.pardir, 'data/datacleaned_valid.txt'), encoding="utf8") as fp:
         phrases = fp.read().split('\n')
     phrases_list = [list(filter(None, line.strip().split(','))) for line in phrases if line.strip() and re.search('[a-zA-Z]', line)]
     
     #positive
     score(phrases_list)
-    
-    with open(os.path.join(os.pardir, 'data/neg_datacleaned_valid.txt'), encoding="utf8") as fp:
+    '''
+    with open(os.path.join(os.pardir, 'data/mix_random_valid.txt'), encoding="utf8") as fp:
         phrases = fp.read().split('\n')
     phrases_list = [list(filter(None, line.strip().split(','))) for line in phrases if line.strip() and re.search('[a-zA-Z]', line)]
 
