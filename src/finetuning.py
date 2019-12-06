@@ -78,6 +78,7 @@ class BinaryClassData():
             sent_1 = tokenization.convert_to_unicode(row[1])
             sent_2 = tokenization.convert_to_unicode(row[2])
             label = row[0]
+
             examples.append(Example(uid, sent_1, sent_2, label))
         return examples
 
