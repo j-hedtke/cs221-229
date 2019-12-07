@@ -1,7 +1,0 @@
-data/GoogleNews-vectors-negative300.bin
-.DS_Store
-data/gs_transcripts/*.json
-data/SICK_Annotated.zip
-models/*
-data/Stsbenchmark.tar.gz
-data/stsbenchmark/*
