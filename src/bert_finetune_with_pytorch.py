@@ -19,7 +19,7 @@ train_data_path = os.path.join(dirname, 'data/sts-b/sts-train.csv')
 test_data_path = os.path.join(dirname, 'data/sts-b/sts-test.csv')
 
 MAX_LEN = 128
-batch_size = 4
+batch_size = 32
 
 learning_rate = 3e-5
 epochs = 3
