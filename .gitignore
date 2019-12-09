@@ -7,3 +7,4 @@ data/stsbenchmark/*
 output/eng_news_embeddings.csv
 output/eng_news_embeddings.jsonl
 models/*
+gsutil_test/*
