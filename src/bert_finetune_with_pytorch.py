@@ -45,6 +45,7 @@ def flat_accuracy(preds, labels):
     labels_flat = labels.flatten()
     return np.sum(pred_flat == labels_flat) / len(labels_flat)
 
+
 class BertSimilarity(BertPreTrainedModel):
     def __init__(self, config):
         super(BertSimilarity, self).__init__(config)
@@ -63,6 +64,8 @@ class BertSimilarity(BertPreTrainedModel):
         output = self.sigmoid(linear_output)
 
         return output
+
+#BertPreTrainedModel = BertModel.from_pretrained('bert-base-uncased')
 
 def main():
 
