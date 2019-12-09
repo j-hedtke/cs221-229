@@ -18,7 +18,7 @@ model_save_path = os.path.join(dirname, 'output/finetuned_stsb_bert_from_pytorch
 train_data_path = os.path.join(dirname, 'data/sts-b/sts-train.csv')
 test_data_path = os.path.join(dirname, 'data/sts-b/sts-test.csv')
 
-MAX_LEN = 128
+MAX_LEN = 256
 batch_size = 32
 
 learning_rate = 3e-5
