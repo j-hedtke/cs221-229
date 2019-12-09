@@ -1,0 +1,6 @@
+
+.DS_Store
+data/*
+output/eng_news_embeddings.csv
+output/eng_news_embeddings.jsonl
+models/*
