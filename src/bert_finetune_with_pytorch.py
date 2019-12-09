@@ -54,7 +54,10 @@ train_data = [line for line in train_data if line.strip()]
 for line in train_data:
     pair = []
     line1 = line.split('\t')
-    scores_train.append(float(line1[4]))
+    if float(line1[4]) <= 2.5:
+        scores_train.append(0)
+    else:
+        scores_train.append(1)
     first_sent_train.append(line1[5])
     second_sent_train.append(line1[6])
     pair.append(str(line1[5]))
@@ -67,13 +70,12 @@ with open(test_data_path, encoding='utf-8') as fin:
 test_data = [line for line in test_data if line.strip()]
 for line in test_data:
     line1 = line.split('\t')
-    scores_test.append(float(line1[4]))
+    if float(line1[4]) <= 2.5:
+        scores_test.append(0)
+    else:
+        scores_test.append(1)
     first_sent_test.append(line1[5])
     second_sent_test.append(line1[6])
-
-#scores normalization
-scores_train = np.divide(scores_train, 5)
-scores_test = np.divide(scores_test, 5)
 
 pairs_train = []
 pairs_test = []
