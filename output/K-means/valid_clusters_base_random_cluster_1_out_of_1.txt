@@ -1,0 +1,5 @@
+After that the subregions grow in size until hitting the x limit on each new epoch
+However show that deep learning can predict not only geobody likelihood but also relevant attributes fault dip and strike angle
+It is worth investigating to utilize these important directional attributes in deep learning interpretation methods such as guiding the floodfilling search pattern so that overlapping instances can be separated
+Also Table summarizes the objective results that we have obtained In the stronglysupervised model adding skip connections and augmentation to the baseline both helped improve the results over the baseline model
+We train the model for epochs and use area under the curve as the metric to determine the matching performance of the prediction likelihood against the ground truth The training took less than hours with a GTX Ti GPU

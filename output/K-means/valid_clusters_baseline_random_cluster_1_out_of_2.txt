@@ -1,0 +1,5 @@
+Naturally the stronglysupervised models perform better than weaklysupervised ones While our weaklysupervised results are encouraging given the minimal amount of annotated data they require we still believe more research is needed to help minimize the performance gap between weakly and stronglysupervised models
+This architecture performs well for semantic segmentation tasks and outputs a prediction that matches the size of the network input
+We use of our training data for validation and we train all our models until convergence
+Figure shows a D view of the survey with the Scruff and Zechstein groups visible
+Figure shows the label mapping results for various images
