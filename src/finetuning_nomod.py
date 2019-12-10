@@ -14,7 +14,7 @@ from research import Job
 
 
 def main():
-    command = 'python {} \
+    command = 'python3 {} \
   --task_name=MRPC \
   --do_train=true \
   --data_dir={}/MRPC \
