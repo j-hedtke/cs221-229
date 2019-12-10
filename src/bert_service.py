@@ -16,9 +16,11 @@ import matplotlib
 matplotlib.use('PS')
 import matplotlib.pyplot as plt
 
+
 OUTPUT_DIR = os.path.join(os.pardir, 'output')
 
 with open(os.path.join(os.pardir, 'data/datacleaned_valid.txt'), 'r') as fp:
+
     phrases = fp.read().split('\n')
 phrases_list = [list(filter(None, line.strip().split(','))) for line in phrases if line.strip() and re.search('[a-zA-Z]', line)]
 first_of_pair = [pair[0] for pair in phrases_list]
@@ -136,9 +138,11 @@ def compute_embeddings():
     
     bc.close()
 
+
 def valid_embeddings(outfile_stem):
     outfile1 = '{}/valid_{}_first.txt'.format(OUTPUT_DIR, outfile_stem)
     outfile2 = '{}/valid_{}_second.txt'.format(OUTPUT_DIR, outfile_stem)
+
 
     with BertClient(port=5555, port_out=5556, check_version=False) as bc:
         first = bc.encode(first_of_pair)
@@ -283,7 +287,7 @@ if __name__ == '__main__':
     #rank_most_similar(5, finetuned='mrpc')
     #rank_most_similar(5)
     #compute_embeddings()
-    #valid_embeddings()
+    valid_embeddings()
     #compute_pca(var_threshold=True)
     #compute_pca(n=3)
 
