@@ -11,6 +11,12 @@ import io
 import os
 import numpy as np
 import os
+from glob import glob
+import json
+import subprocess
+from google.cloud import storage
+
+
 
 dirname = os.path.dirname(os.path.dirname(__file__))
 
@@ -25,19 +31,6 @@ batch_size = 32
 learning_rate = 3e-5
 epochs = 3
 
-torch.cuda.empty_cache()
-
-device_name = tf.test.gpu_device_name()
-if device_name != '/device:GPU:0':
-  raise SystemError('GPU device not found')
-print('Found GPU at: {}'.format(device_name))
-
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-n_gpu = torch.cuda.device_count()
-torch.cuda.get_device_name(0)
-
-tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
-#model.cuda()
 
 # Function to calculate the accuracy of our predictions vs labels
 def flat_accuracy(preds, labels):
@@ -67,8 +60,31 @@ class BertSimilarity(BertPreTrainedModel):
 
 #BertPreTrainedModel = BertModel.from_pretrained('bert-base-uncased')
 
+def copy_dir_to_bucket(src_path, dest_path, bucket):
+    assert os.path.isdir(src_path)
+    for local_file in glob.glob(src_path + '/**'):
+        if not os.path.isfile(local_file):
+            continue
+        remote_path = os.path.join(dest_path, local_file[1 + len(src_path) :])
+        blob = bucket.blob(remote_path)
+        blob.upload_from_filename(local_file)
+
 def main():
 
+    
+    torch.cuda.empty_cache()
+
+    device_name = tf.test.gpu_device_name()
+    if device_name != '/device:GPU:0':
+      raise SystemError('GPU device not found')
+    print('Found GPU at: {}'.format(device_name))
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    n_gpu = torch.cuda.device_count()
+    torch.cuda.get_device_name(0)
+
+    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
+    #model.cuda()
     scores_train =[]
     first_sent_train = []
     second_sent_train = []
@@ -224,6 +240,7 @@ def main():
 
     # Store our loss and accuracy for plotting
     train_loss_set = []
+    accuracy = {}
 
     # trange is a tqdm wrapper around the normal python range
     for _ in trange(epochs, desc="Epoch"):
@@ -259,7 +276,9 @@ def main():
             nb_tr_steps += 1
 
         print("Train loss: {}".format(tr_loss / nb_tr_steps))
-
+        
+        accuracy['train_loss'] = tr_loss / nb_tr_steps
+       
         # Validation
 
         # Put model in evaluation mode to evaluate loss on the validation set
@@ -288,10 +307,34 @@ def main():
 
             eval_accuracy += tmp_eval_accuracy
             nb_eval_steps += 1
-
+        
+        accuracy['valid_loss'] = eval_accuracy / nb_eval_steps
+        
         print("Validation Accuracy: {}".format(eval_accuracy / nb_eval_steps))
 
     print("Saving to output folder")
+    
+    acc_filename = os.path.join(model_save_path, 'accuracy.json')
+    with open(acc_filename, 'w') as f:
+        json.dump(accuracy, f)
+    f.close()
+    
+    train_loss_filename = os.path.join(model_save_path, 'trainloss.txt')
+    with open(train_loss_filename, 'w') as f:
+        f.writelines(train_loss_set)
+
+
     model_to_save = model.module if hasattr(model, 'module') else model  # Take care of distributed/parallel training
     model_to_save.save_pretrained(model_save_path)
     tokenizer.save_pretrained(model_save_path)
+    
+    #storage_client = storage.Client()
+    bucket_name = 'gs://gridspace-tts-data'
+    #bucket = storage_client.get_bucket(bucket_name)
+    
+    cp_to_bucket_cmd = 'cp {} {}'.format(model_save_path, bucket_name)
+
+    subprocess.check_call(cp_to_bucket_cmd, shell=True)
+
+if __name__ == '__main__':
+    main()
