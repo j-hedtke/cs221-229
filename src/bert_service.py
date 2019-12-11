@@ -71,7 +71,7 @@ def rank_most_similar_cached(n, model):
             top_n.append(matches[i][0])
         output.append([sen1] + top_n)
     #import pdb;pdb.set_trace()
-    with open(outfile, 'w') as f:
+    with open(outfile, 'w', encoding="utf8") as f:
        writer = csv.writer(f)
        for sen in output:
             writer.writerow(sen)
@@ -217,10 +217,11 @@ def compute_accuracy(model=None):
                                  'similarity_rankings_{}.csv'.format(model))
     
     sim_rankings = []
-    with open(rankings_file, 'r') as f:
+    with open(rankings_file, 'r', encoding="utf8") as f:
         reader = csv.reader(f)
         for r in reader:
-            sim_rankings.append(r)
+            if r:
+                sim_rankings.append(r)
     n_correct_top_5 = 0
     n_correct_top = 0
     n_total = 0
@@ -235,7 +236,7 @@ def compute_accuracy(model=None):
     accuracy_top_5 = n_correct_top_5 / n_total
     accuracy_top = n_correct_top / n_total
     
-    with open(outfile, 'w') as f:
+    with open(outfile, 'w', encoding="utf8") as f:
         wr = csv.writer(f)
         wr.writerow([str(accuracy_top_5), str(accuracy_top)])
 
@@ -268,7 +269,7 @@ if __name__ == '__main__':
     #negative with random list
     score(phrases_list, 'negrandom_bert_cos_similarity.txt')
     """
-
+    compute_accuracy('finetuned_stsb')
     parser = argparse.ArgumentParser(description='Running BERT service')
     parser.add_argument('--valid_embeddings')
     parser.add_argument('--pca', nargs='*', help='model, n, infile_stem, outfile_stem')
