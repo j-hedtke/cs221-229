@@ -13,11 +13,17 @@ from sklearn.preprocessing import StandardScaler
 from collections import defaultdict
 import argparse
 import matplotlib
-matplotlib.use('PS')
+import pandas as pd
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
+import seaborn as sns
+
+EMB_DIM = 768
 
 
 OUTPUT_DIR = os.path.join(os.pardir, 'output')
+
+MODELS = ['baseline', 'bert_base', 'finetuned_mrpc']
 
 with open(os.path.join(os.pardir, 'data/datacleaned_valid.txt'), 'r') as fp:
 
@@ -140,8 +146,8 @@ def compute_embeddings():
 
 
 def valid_embeddings(outfile_stem):
-    outfile1 = '{}/valid_{}_first.txt'.format(OUTPUT_DIR, outfile_stem)
-    outfile2 = '{}/valid_{}_second.txt'.format(OUTPUT_DIR, outfile_stem)
+    outfile1 = '{}/valid_{}_emb_first.txt'.format(OUTPUT_DIR, outfile_stem)
+    outfile2 = '{}/valid_{}_emb_second.txt'.format(OUTPUT_DIR, outfile_stem)
 
 
     with BertClient(port=5555, port_out=5556, check_version=False) as bc:
@@ -156,23 +162,158 @@ def valid_embeddings(outfile_stem):
 def pearson():
     pass
 
+def rank_most_similar_inmem(n, emb_1, emb_2):
+    output = []
+    for e1, sen1 in zip(emb_1, first_of_pair):
+        matches = []
+        for e2, sen2 in zip(emb_2, second_of_pair):
+            matches.append((sen2, cosine_similarity(e1.reshape(1,-1),
+                                                    e2.reshape(1,-1))))
+        matches.sort(key=lambda x: x[1], reverse=True)
+
+        top_n = []
+        for i in range(n):
+            top_n.append(matches[i][0])
+        output.append([sen1] + top_n)
+    return output
+
+def compute_accuracy_inmem(sim_rankings):
+    n_correct_top_5 = 0
+    n_correct_top = 0
+    n_total = 0
+    for sen1,sen2,row in zip(first_of_pair, second_of_pair, sim_rankings):
+        assert(sen1 == row[0])
+        if sen2 == row[1]:
+            n_correct_top += 1
+        if sen2 in row[1:5]:
+            n_correct_top_5 +=1
+        n_total += 1
+
+    accuracy_top_5 = n_correct_top_5 / n_total
+    accuracy_top = n_correct_top / n_total
+    return accuracy_top_5, accuracy_top
+
 def compute_pca_no_plot(n, x):
     pca = PCA(n_components=n)
 
     x = StandardScaler().fit_transform(x)
     prin_components = pca.fit_transform(x)
-    return prin_components
+    return prin_components, pca.explained_variance_ratio_.sum()
 
-def compute_pca_range(model, outfile, infile):
-    pass
+def compute_pca_range(inmodel):
+    
+    in1 = os.path.join(OUTPUT_DIR, 'valid_{}_emb_first.txt'.format(inmodel))
+    in2 = os.path.join(OUTPUT_DIR, 'valid_{}_emb_second.txt'.format(inmodel))
+    
+    f1 = open(in1, 'r')
+    f2 = open(in2, 'r')
+    first_emb = np.loadtxt(f1)
+    second_emb = np.loadtxt(f2)
+    f1.close()
+    f2.close()
+    epsilon = 0.001
+    expl_var_threshold = 0.95
+    # ith index holds metrics for (i + 1) number of components
+    acc = []
+    expl_var = []
+    x = np.concatenate((first_emb, second_emb), axis=0)
+    for n in range(1, EMB_DIM):
+        prin_components, expl_var_scalar = compute_pca_no_plot(n, x)
+        if expl_var and (abs(expl_var_scalar - expl_var[-1][1]) < epsilon or
+                         expl_var_scalar > expl_var_threshold):
+            break
+        first, second = np.split(prin_components, 2, axis=0)
+        rankings = rank_most_similar_inmem(5, first, second)
+        acc_top_5, acc_top = compute_accuracy_inmem(rankings)
+        acc.append([n, acc_top_5])
+        expl_var.append([n, expl_var_scalar])
+    
+    return acc, expl_var
 
+def plot_pca_expl_var_custom(filename, model, title):
+    in1 = os.path.join(OUTPUT_DIR, filename)
+    data = []
+    with open(in1, 'r') as f:
+        for line in f:
+            emb = list(json.loads(line).values())[0]
+            data.append(emb)
+
+    acc = []
+    expl_var = []
+    emb = np.array(data)
+    mask = np.random.choice([False, True], emb.shape[0], p = [0.9, 0.1])
+    emb_sm = emb[mask]
+    epsilon = 0.001
+    expl_var_threshold = 0.95
+    for n in range(1, EMB_DIM):
+
+        prin_components, expl_var_scalar = compute_pca_no_plot(n, emb_sm)
+        if expl_var and (abs(expl_var_scalar - expl_var[-1][1]) < epsilon or
+                         expl_var_scalar > expl_var_threshold):
+            break
+
+        expl_var.append([n, expl_var_scalar])
+
+    sns.set()
+
+    expl_var_pd = pd.DataFrame(np.array(expl_var),columns =
+                                   ['N Components', 'Explained Variance'])
+    plt.figure()
+    ax2 = sns.lineplot(x='N Components', y='Explained Variance',
+                       data=expl_var_pd, ci=None)
+    ax2.set_title(title)
+    plt.savefig(os.path.join(OUTPUT_DIR, '{}_{}.png'.format(filename, model)))
+
+def plot_pca_metrics():
+    sns.set()
+    ax1 = None
+    ax2 = None
+    accuracies = []
+    expl_variances = []
+    final_accuracies = {}
+    final_expl_var = {}
+    for model in MODELS:
+        acc, expl_var = compute_pca_range(model)
+        final_accuracies[model] = acc[-1]
+        final_expl_var[model] = expl_var[-1]
+        acc_pd  = pd.DataFrame(np.array(acc), columns =
+                                   ['N Components', 'Accuracy'])
+        accuracies.append(acc_pd.assign(model=model))
+        
+        expl_var_pd  = pd.DataFrame(np.array(expl_var), columns =
+                                   ['N Components', 'Explained Variance'])
+        expl_variances.append(expl_var_pd.assign(model=model))
+
+    
+    concat_acc = pd.concat(accuracies)
+    concat_expl_var = pd.concat(expl_variances)
+
+    with open(os.path.join(OUTPUT_DIR, 'dim_reduced_accuracies.csv'), 'w') as f:
+        writer = csv.writer(f)
+        for k,v in final_accuracies.items():
+            writer.writerow([k] + v)
+    f.close()
+    with open(os.path.join(OUTPUT_DIR, 'dim_reduced_explained_variances.csv'), 'w') as f:
+        writer = csv.writer(f)
+        for k,v in final_expl_var.items():
+            writer.writerow([k] + v)
+
+    plt.figure()
+    ax1 = sns.lineplot(x='N Components', y='Accuracy', data=concat_acc,
+                       hue='model', style='model', ci=None)
+    plt.savefig(os.path.join(OUTPUT_DIR, 'pca_accuracy.png'))
+
+    plt.figure()
+    ax2 = sns.lineplot(x='N Components', y='Explained Variance',
+                       data=concat_expl_var, hue='model',
+                       style='model', ci=None)
+    plt.savefig(os.path.join(OUTPUT_DIR, 'pca_explained_variance.png'))
 
 def compute_pca(model, n, infile, outfile, var_threshold=False):
     first_emb = []
     second_emb = []
     output_path = os.path.join(OUTPUT_DIR, outfile)
     in1 = os.path.join(OUTPUT_DIR, 'valid_{}_emb_first.txt'.format(infile))
-
     in2 = os.path.join(OUTPUT_DIR, 'valid_{}_emb_second.txt'.format(infile))
     
     f1 = open(in1, 'r')
@@ -239,37 +380,11 @@ def compute_accuracy(model=None):
 
 
 if __name__ == '__main__':
-    
-    """
-    with open(os.path.join(os.pardir, 'data/datacleaned_valid.txt'), encoding="utf8") as fp:
-        phrases = fp.read().split('\n')
-        phrases_list = [list(filter(None, line.strip().split(','))) for line in phrases if line.strip() and re.search('[a-zA-Z]', line)]
-    
-    #positive
-    score(phrases_list)
-    
-    with open(os.path.join(os.pardir, 'data/neg_datacleaned_valid.txt'), encoding="utf8") as fp:
-        phrases = fp.read().split('\n')
-    phrases_list = [list(filter(None, line.strip().split(','))) for line in phrases if line.strip() and re.search('[a-zA-Z]', line)]
-
-
-    #negative
-    score(phrases_list, pos=False)
-    """
-    
-    """
-    with open(os.path.join(os.pardir, 'data/random_sentences_valid.txt'), encoding="utf8") as fp:
-        phrases = fp.read().split('\n')
-    phrases_list = [list(filter(None, line.strip().split(','))) for line in phrases if line.strip() and re.search('[a-zA-Z]', line)]
-
-
-    #negative with random list
-    score(phrases_list, 'negrandom_bert_cos_similarity.txt')
-    """
-
     parser = argparse.ArgumentParser(description='Running BERT service')
     parser.add_argument('--valid_embeddings')
     parser.add_argument('--pca', nargs='*', help='model, n, infile_stem, outfile_stem')
+    parser.add_argument('--plot_pca', action='store_true')
+    parser.add_argument('--plot_pca_custom', nargs=3)
     parser.add_argument('--accuracy')
     parser.add_argument('--rankings', nargs='*')
     args = parser.parse_args()
@@ -277,6 +392,13 @@ if __name__ == '__main__':
         valid_embeddings(args.valid_embeddings)
     if args.pca:
         compute_pca(args.pca[0], args.pca[1], args.pca[2], args.pca[3])
+    if args.plot_pca:
+        plot_pca_metrics()
+    if args.plot_pca_custom:
+        if args.plot_pca_custom[2] == 'eng_news':
+            title = '7.8k Sentences From Subset of the Leipzig Corpora Collection'
+        plot_pca_expl_var_custom(args.plot_pca_custom[0],
+                                 args.plot_pca_custom[1], title)
     if args.accuracy:
         compute_accuracy(args.accuracy)
     if args.rankings:
@@ -284,11 +406,4 @@ if __name__ == '__main__':
             rank_most_similar_cached(5, args.rankings[1])
         elif args.rankings[0] == 'not_cached':
             rank_most_similar(5)
-    #rank_most_similar(5, finetuned='mrpc')
-    #rank_most_similar(5)
-    #compute_embeddings()
-    valid_embeddings()
-    #compute_pca(var_threshold=True)
-    #compute_pca(n=3)
-
 
