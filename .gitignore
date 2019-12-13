@@ -8,3 +8,4 @@ output/eng_news_embeddings.csv
 output/eng_news_embeddings.jsonl
 models/*
 gsutil_test/*
+output_and_data/*
