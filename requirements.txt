@@ -17,7 +17,7 @@ Click==7.0
 cycler==0.10.0
 cymem==2.0.2
 decorator==4.4.1
-Django==2.2.7
+Django==2.2.21
 docutils==0.15.2
 fire==0.2.1
 gast==0.2.2
